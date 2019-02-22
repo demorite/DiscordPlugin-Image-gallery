@@ -70,7 +70,9 @@ class ImageGalleryByDemi {
 				document.querySelector('.da-downloadLink').innerText = `Open original | ${this.currentIndex+1}/${allImages.length}`
 				
 				// Setting right image
-				zoomed.src = allImages[currentIndex].src.replace(/\?.*$/g, '')
+				const newImage = new Image();
+				newImage.src = allImages[currentIndex].src.replace(/\?.*$/g, '');
+				newImage.onload = () => zoomed.src = newImage.src
 			}catch(e){
 				console.error(e)
 			}
