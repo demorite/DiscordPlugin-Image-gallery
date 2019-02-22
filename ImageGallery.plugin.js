@@ -33,10 +33,11 @@ class ImageGalleryByDemi {
 				// Checking if viewer is up
 				const zoomed = document.querySelector('#app-mount > div:nth-child(5) > div > div > div > div > img')
 
-				const keys = ['q' ,'d' ,'s' ,'ArrowLeft' ,'ArrowRight', 'ArrowDown']
+				const keys = ['q' ,'d' ,'s' ,'ArrowLeft' ,'ArrowRight', 'ArrowDown', 'ArrowUp']
 				if(!zoomed || !(keys.includes(e.key)))
 					return false
-	
+				e.preventDefault();
+
 				// Adjusting style
 				zoomed.parentElement.style.maxWidth = zoomed.style.maxWidth = "90vw";
 				zoomed.parentElement.style.maxHeight = zoomed.style.maxHeight = "80vh";
@@ -82,5 +83,4 @@ class ImageGalleryByDemi {
 				console.error(e)
 			}
 	}
-
 }
