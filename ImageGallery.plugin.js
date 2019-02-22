@@ -32,18 +32,18 @@ class ImageGalleryByDemi {
 			try{
 				// Checking if viewer is up
 				const zoomed = document.querySelector('#app-mount > div:nth-child(5) > div > div > div > div > img')
-				if(!zoomed || (e.key !== 'q' && e.key !== 'd'))
+
+				if(!zoomed || (e.key !== 'q' && e.key !== 'd' && e.key !== 's'))
 					return false
 	
 				// Adjusting style
-				zoomed.parentElement.style.maxWidth = "90vw";
-				zoomed.parentElement.style.maxHeight = "80vh";
+				zoomed.parentElement.style.maxWidth = zoomed.style.maxWidth = "90vw";
+				zoomed.parentElement.style.maxHeight = zoomed.style.maxHeight = "80vh";
 				zoomed.parentElement.style.width = "initial";
 				zoomed.parentElement.style.height = "initial";
 				zoomed.parentElement.style.display = "flex";
 				zoomed.parentElement.style.alignItems = "center";
 				zoomed.parentElement.style.justifyContent = "center";
-				zoomed.style.maxWidth = zoomed.style.maxHeight = "100%";
 				zoomed.style.position = 'initial'
 				zoomed.style.width = "initial";
 				zoomed.style.height = "initial";
@@ -72,7 +72,11 @@ class ImageGalleryByDemi {
 				// Setting right image
 				const newImage = new Image();
 				newImage.src = allImages[currentIndex].src.replace(/\?.*$/g, '');
-				newImage.onload = () => zoomed.src = newImage.src
+				newImage.setAttribute('data-index', this.currentIndex);
+				newImage.onload = () => {
+					if(+newImage.getAttribute('data-index') === this.currentIndex) 
+						zoomed.src = newImage.src 
+				};
 			}catch(e){
 				console.error(e)
 			}
