@@ -17,13 +17,13 @@ class ImageGalleryByDemi {
 	load () {}
 
 	start () {
-		window.addEventListener('keypress', this.keypressevent)
+		window.addEventListener('keydown', this.keypressevent)
 		this.currentIndex = null;
 		console.log('image by demi started')
 	}
 
 	stop () {
-		window.removeEventListener('keypress', this.keypressevent)
+		window.removeEventListener('keydown', this.keypressevent)
 		this.currentIndex = null;
 		console.log('image by demi stoped')
 	}
@@ -33,7 +33,8 @@ class ImageGalleryByDemi {
 				// Checking if viewer is up
 				const zoomed = document.querySelector('#app-mount > div:nth-child(5) > div > div > div > div > img')
 
-				if(!zoomed || (e.key !== 'q' && e.key !== 'd' && e.key !== 's'))
+				const keys = ['q' ,'d' ,'s' ,'ArrowLeft' ,'ArrowRight', 'ArrowDown']
+				if(!zoomed || !(keys.includes(e.key)))
 					return false
 	
 				// Adjusting style
@@ -60,9 +61,9 @@ class ImageGalleryByDemi {
 				zoomed.src = "https://loading.io/spinners/blocks/index.rotating-squares-preloader-gif.svg"
 
 				// Navigate
-				if(e.key === 'q'){
+				if(e.key === 'q' || e.key === 'ArrowLeft'){
 					this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : 0; 
-				} else if(e.key === 'd'){
+				} else if(e.key === 'd' || e.key === 'ArrowRight'){
 					this.currentIndex < allImages.length-1 && this.currentIndex++
 				}
 				
